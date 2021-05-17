@@ -4,18 +4,20 @@ const plus = document.querySelector("#add");
 const minus = document.querySelector("#minus");
 const number = document.querySelector("span");
 
-const countModifier = (count = 0, action) => {
-  if (action.type === "ADD") {
-    console.log("ADD");
-    return count + 1;
-  }
-  else if (action.type === "MINUS") {
-    console.log("MINUS");
-    return count - 1;
-  } else {
-    return count;
-  }
+number.innerText = 0;
 
+const ADD = "ADD";
+const MINUS = "MINUS";
+
+const countModifier = (count = 0, action) => {
+  switch (action.type) {
+    case "ADD":
+      return count + 1;
+    case "MINUS":
+      return count - 1;
+    default:
+      return count;
+  }
 };
 
 const countStore = createStore(countModifier);
@@ -26,5 +28,5 @@ const onChange = () => {
 
 countStore.subscribe(onChange);
 
-plus.addEventListener("click", () => countStore.dispatch({ type: "ADD" }));
-minus.addEventListener("click", () => countStore.dispatch({ type: "MINUS" }));
+plus.addEventListener("click", () => countStore.dispatch({ type: ADD }));
+minus.addEventListener("click", () => countStore.dispatch({ type: MINUS }));
